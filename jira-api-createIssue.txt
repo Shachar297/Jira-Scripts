@@ -1,0 +1,15 @@
+{
+    "fields": {
+        "project": {
+            "id": 10000
+        },
+        "summary": "My summary",
+        "issuetype": {
+            "name": "Story"
+        },
+        "assignee": {
+            "name": "thisisovadia"
+        },
+      "customfield_10108": "FJP-2"
+    }
+}
