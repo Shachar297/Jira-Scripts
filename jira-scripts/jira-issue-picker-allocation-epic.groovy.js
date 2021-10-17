@@ -205,7 +205,7 @@ private void updateCurrentIssue(Issue issue) {
 }
 
 private void createIssueLinkAndUpdateIssue(Issue issue, MutableIssue innerIssue, linkTypeId) {
-    def user = ComponentAccessor.jiraAuthenticationContext.getLoggedInUser();
+    def user = ComponentAccessor.jiraAuthentication.getLoggedInUser();
     def linkManager = ComponentAccessor.getIssueLinkManager();
     def issueManager = ComponentAccessor.getIssueManager();
 
