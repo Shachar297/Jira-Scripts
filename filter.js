@@ -1,9 +1,6 @@
 const axios = require("axios");
-const JiraApi = require("jira").JiraApi;
 const config = require("../config.json");
 
-
-let jira = new JiraApi(config.type, config.host, config.port, config.username, config.password, config.version);
 async function createFilter(filterFields) {
     const header = {
         headers: {
