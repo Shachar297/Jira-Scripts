@@ -1,0 +1,6 @@
+{
+    "name": "All Empty Stories",
+    "description": "Lists all stand alone Stories",
+    "jql": "type = Story and 'Epic Link' is empty",
+    "favourite": true
+}
