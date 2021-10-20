@@ -31,7 +31,7 @@ def view = rapidViewService.getRapidView(loggedInUser, boardId).getValue()
 def sprintField = customFieldManager.getCustomFieldObject("customfield_10104");
 def sprints = sprintManager.getSprintsForView(view).getValue()
 def activeSprint = sprints.find { it.active }
-sprintsToIssue.add(activeSprint)
+
 
 if (activeSprint && !issue.getCustomFieldValue(sprintField)) {
 	handleIssueChanges(issue, activeSprint.id, sprintsToIssue, sprintField);
@@ -40,7 +40,8 @@ if (activeSprint && !issue.getCustomFieldValue(sprintField)) {
 private void handleIssueChanges (Issue issue, Long sprintId, Collection issueSprints, CustomField sprintField) {
 	def loggedInUser = ComponentAccessor.getJiraAuthenticationContext().getLoggedInUser()
 	def issueManager = ComponentAccessor.getIssueManager();
-    
+	// 
+    	sprintsToIssue.add(activeSprint)
     	MutableIssue currentIssue = issueManager.getIssueObject(issue.key.toString());
 	currentIssue.setCustomFieldValue(sprintField, issueSprints);
     	issueManager.updateIssue(loggedInUser, currentIssue, EventDispatchOption.DO_NOT_DISPATCH, false);
