@@ -36,26 +36,31 @@ if (!changedItems) return;
         if(it.field != fieldChangesLocateByName) return;
         
             // Splitting the string to an array to iterate it by values to locate changes. =>
-            def oldValue = it.oldstring.toString().split(",") as Collection;
+
             def newValue = it.newstring.toString().split(",") as Collection;
+                    
+        		  for(def j = 0; j < newValue.size(); j ++) {            
             
-          for(def j = 0; j < newValue.size(); j ++) {
-            
-            for(def i = 0; i < oldValue.size(); i ++) {
-                
-                    if(newValue[j] != oldValue[i]) {
-                        
+            		for(def i = 0; i < involvedScrumTeams.size(); i ++) {
+                      
+                      if( !isIndeciesSame(newValue[j], involvedScrumTeams[i])) {
+                          
                         allocation = ComponentAccessor.issueFactory.issue;
                         allocation.projectObject = issue.getProjectObject();
                         allocation.issueTypeId = allocationIssueType;
                         allocation.summary = newValue[j].toString();
                         allocation.setCustomFieldValue(customFieldManager.getCustomFieldObject(epicLinkFieldId) , issue); // Epic Link
                         ComponentAccessor.issueManager.createIssueObject(user, allocation);
-                    }
-                }
+                
+                      }      
+				}
             }
         }
 
 private boolean isEpic(Issue issue) {
     return issue.getIssueType().getName() == "Epic"; 
+}
+
+private boolean isIndeciesSame(oldIndex, newIndex) {
+    	return newIndex == oldIndex;
 }
