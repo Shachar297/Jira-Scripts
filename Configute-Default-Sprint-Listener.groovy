@@ -2,14 +2,9 @@ import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.issue.MutableIssue;
 import com.atlassian.jira.issue.Issue;
 import com.atlassian.jira.issue.CustomFieldManager;
-import com.onresolve.jira.groovy.user.FieldBehaviours;
-import com.onresolve.jira.groovy.user.FormField;
-import groovy.transform.BaseScript;
 import com.atlassian.greenhopper.service.rapid.view.RapidViewService
 import com.atlassian.greenhopper.service.sprint.SprintIssueService
 import com.atlassian.greenhopper.service.sprint.SprintManager
-import com.atlassian.jira.component.ComponentAccessor
-import com.atlassian.jira.issue.Issue
 import com.onresolve.scriptrunner.runner.customisers.JiraAgileBean
 import com.onresolve.scriptrunner.runner.customisers.WithPlugin;
 import com.atlassian.jira.event.type.EventDispatchOption;
@@ -46,7 +41,7 @@ private void handleIssueChanges (Issue issue, Long sprintId, Collection issueSpr
 	def loggedInUser = ComponentAccessor.getJiraAuthenticationContext().getLoggedInUser()
 	def issueManager = ComponentAccessor.getIssueManager();
     
-    MutableIssue currentIssue = issueManager.getIssueObject(issue.key.toString());
+    	MutableIssue currentIssue = issueManager.getIssueObject(issue.key.toString());
 	currentIssue.setCustomFieldValue(sprintField, issueSprints);
-    issueManager.updateIssue(loggedInUser, currentIssue, EventDispatchOption.DO_NOT_DISPATCH, false);
+    	issueManager.updateIssue(loggedInUser, currentIssue, EventDispatchOption.DO_NOT_DISPATCH, false);
 }
