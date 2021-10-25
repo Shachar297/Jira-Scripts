@@ -56,6 +56,7 @@ def allocationActionCheckbox = customFieldManager.getCustomFieldObject("customfi
         
         if(it.field != fieldChangesLocateByName || issue.getCustomFieldValue(allocationActionCheckbox).toString() != '[Create Allocation for added Scrum teams]') return;
         
+<<<<<<< HEAD
 			def linkedAllocations = getAllLinkedAllocations(issue, user);
 
         		  for(def j = 0; j < involvedScrumTeams.size(); j ++) {      
@@ -63,6 +64,18 @@ def allocationActionCheckbox = customFieldManager.getCustomFieldObject("customfi
                       if(linkedAllocations.toString().indexOf(involvedScrumTeams[j].toString()) == -1 && isScrumTeamExists(user, involvedScrumTeams[j])) {
 
                           // Setting up the new Allocaiton according to the involved scrum team field value;
+=======
+            // Splitting the string to an array to iterate it by values to locate changes. =>
+
+            def newValue = it.newstring.toString().split(",") as Collection;
+                    
+        		  for(def j = 0; j < newValue.size(); j ++) {            
+            
+            		for(def i = 0; i < involvedScrumTeams.size(); i ++) {
+                      
+                      if( !isIndeciesSame(newValue[j], involvedScrumTeams[i])) {
+                          
+>>>>>>> f7c42733f0b50f74e95418139405021914fc5d9f
                         allocation = ComponentAccessor.issueFactory.issue;
                           
                         allocation.projectObject = issue.getProjectObject();
@@ -76,7 +89,12 @@ def allocationActionCheckbox = customFieldManager.getCustomFieldObject("customfi
                         // Creating the new Allocation with all the configuration above.
                         ComponentAccessor.issueManager.createIssueObject(user, allocation);
                 
+<<<<<<< HEAD
                 }      
+=======
+                      }      
+				}
+>>>>>>> f7c42733f0b50f74e95418139405021914fc5d9f
             }
         }
 
@@ -143,6 +161,7 @@ private boolean isEpic(Issue issue) {
 private boolean isIndeciesSame(oldIndex, newIndex) {
     	return newIndex == oldIndex;
 }
+<<<<<<< HEAD
 
 // Getting the allocation's Value to set it while running the script.
 private Option setScrumTeamValue (MutableIssue allocation, CustomField scrumTeamField, newIndexValue, OptionsManager optManager) {
@@ -197,3 +216,5 @@ private boolean isScrumTeamExists(ApplicationUser user, scrumTeamName) {
     }
     return false
 	}
+=======
+>>>>>>> f7c42733f0b50f74e95418139405021914fc5d9f
