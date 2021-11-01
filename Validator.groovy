@@ -1,4 +1,4 @@
-// this script executesw (Disable creating) when creating a Sprint (Issue type) that already exists and registered under a existed Jira Sprint.
+// this script executes (Disable creating) when creating a Sprint (Issue type) that already exists and registered under a existed Jira Sprint.
 
 import com.atlassian.jira.component.ComponentAccessor
 import com.atlassian.jira.issue.search.SearchProvider
