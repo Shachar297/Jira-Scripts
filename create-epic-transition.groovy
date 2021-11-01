@@ -34,9 +34,6 @@ def currentEpicStatus = issue.getStatus();
 def epicSummary = issue.summary;
 def epicDescription = issue.description;
 
-//
-
-//------
 def issueService = ComponentAccessor.getIssueService();
 // Setting up feature fields =>
 MutableIssue allocation = ComponentAccessor.issueFactory.issue;
@@ -49,17 +46,12 @@ allocation.description = epicDescription;
 allocation.reporter = issue.getReporter();
 allocation.setCustomFieldValue(customFieldManager.getCustomFieldObject("customfield_14023") , issue);
 
-
-
-
 def linkManager = ComponentAccessor.getIssueLinkManager();
-
 
 def issueLinkTypeManager = ComponentAccessor.getComponent(IssueLinkTypeManager);
 def availableIssueLinkTypes = issueLinkTypeManager.issueLinkTypes;
 def issueLinkName = "Allocation - Feature";
 def linkType = availableIssueLinkTypes.findByName(issueLinkName)
-
 
     ComponentAccessor.issueManager.createIssueObject(user, allocation); // Creating Feature issue as object.
         
