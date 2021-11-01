@@ -23,17 +23,13 @@ def issueManager = ComponentAccessor.getIssueManager()
 def user = ComponentAccessor.getJiraAuthenticationContext().getUser();
 def changeHistoryManager = ComponentAccessor.getChangeHistoryManager();
 def jiraSprint = issue.getSummary();
-    //ComponentAccessor.getCustomFieldManager().getCustomFieldObjectsByName("Summary");
-//def sprint = issue.getCustomFieldValue(jiraSprint); 
-log.warn(jiraSprint)
-
 
 def query = jqlQueryParser.parseQuery("issuetype = Sprint and Sprint = '${jiraSprint.toString()}'");
+def results = searchService.search(user,query, PagerFilter.getUnlimitedFilter()).getResults()
 
-def results = searchService.search(user,query, PagerFilter.getUnlimitedFilter())
-log.warn(results);
-results = results.getResults()
-log.warn(results);
+ // We Are searching for a sprint issue with the same sprint as the query shows 
+ // if we dont find one, we continue, if we do find one, we disable a issue creation.
+
 if(!results || results.size() == 0) {
     return true;
 }else{
