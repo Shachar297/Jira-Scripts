@@ -8,7 +8,7 @@
             "name": "Story"
         },
         "assignee": {
-            "name": "thisisovadia"
+            "name": "${config.system.name}"
         },
       "customfield_10108": "FJP-2"
     }
