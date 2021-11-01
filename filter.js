@@ -10,7 +10,7 @@ async function createFilter(filterFields) {
     }
     let filter = {};
     try {
-        filter = await axios.post("http://localhost:8080/rest/api/2/filter/", {body : filterFields}, header)
+        filter = await axios.post("config.system.url/filter/", {body : filterFields}, header)
         .then((res) => {
             console.log(filter);
         }).catch((err) => {
