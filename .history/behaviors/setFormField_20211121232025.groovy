@@ -22,6 +22,8 @@ FormField sprintField = getFieldByName("Sprint");
 def issueManager = ComponentAccessor.getIssueManager();
 def user = ComponentAccessor.getJiraAuthenticationContext().getLoggedInUser();
 
+Issue sprintIssue = issueManager.getIssueObject(getSprintIssueBySprintName(sprintField, user).toString())
+//sprintPicker.setFormValue(sprintIssue);
 sprintPicker.setFormValue(getSprintIssueBySprintName(sprintField, user))
 
 

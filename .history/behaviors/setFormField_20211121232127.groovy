@@ -25,7 +25,6 @@ def user = ComponentAccessor.getJiraAuthenticationContext().getLoggedInUser();
 sprintPicker.setFormValue(getSprintIssueBySprintName(sprintField, user))
 
 
-
 private String getSprintIssueBySprintName(FormField sprintField,ApplicationUser user ) { 
     FormField cyckePicker = getFieldByName("Related Cycle");
 
