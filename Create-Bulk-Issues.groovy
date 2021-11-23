@@ -57,9 +57,9 @@ def allocationActionCheckbox = customFieldManager.getCustomFieldObject("customfi
         if(it.field != fieldChangesLocateByName || issue.getCustomFieldValue(allocationActionCheckbox).toString() != '[Create Allocation for added Scrum teams]') return;
         
 <<<<<<< HEAD
-			def linkedAllocations = getAllLinkedAllocations(issue, user);
+            def linkedAllocations = getAllLinkedAllocations(issue, user);
 
-        		  for(def j = 0; j < involvedScrumTeams.size(); j ++) {      
+                  for(def j = 0; j < involvedScrumTeams.size(); j ++) {      
 
                       if(linkedAllocations.toString().indexOf(involvedScrumTeams[j].toString()) == -1 && isScrumTeamExists(user, involvedScrumTeams[j])) {
 
@@ -69,9 +69,9 @@ def allocationActionCheckbox = customFieldManager.getCustomFieldObject("customfi
 
             def newValue = it.newstring.toString().split(",") as Collection;
                     
-        		  for(def j = 0; j < newValue.size(); j ++) {            
+                  for(def j = 0; j < newValue.size(); j ++) {            
             
-            		for(def i = 0; i < involvedScrumTeams.size(); i ++) {
+                    for(def i = 0; i < involvedScrumTeams.size(); i ++) {
                       
                       if( !isIndeciesSame(newValue[j], involvedScrumTeams[i])) {
                           
@@ -85,7 +85,7 @@ def allocationActionCheckbox = customFieldManager.getCustomFieldObject("customfi
                         allocation.setCustomFieldValue(customFieldManager.getCustomFieldObject(epicLinkFieldId) , issue); // Epic Link
                         allocation.setReporter(user);
                         !allocation.getCustomFieldValue(sprintField) ? allocation.setCustomFieldValue(sprintField, getActiveSprint(user)) : null; // Setting the sprint defaultly as active.
-                        allocation.setAssignee(getAllocationAssignee(involvedScrumTeams[j], user));	
+                        allocation.setAssignee(getAllocationAssignee(involvedScrumTeams[j], user));    
                         // Creating the new Allocation with all the configuration above.
                         ComponentAccessor.issueManager.createIssueObject(user, allocation);
                 
@@ -93,7 +93,7 @@ def allocationActionCheckbox = customFieldManager.getCustomFieldObject("customfi
                 }      
 =======
                       }      
-				}
+                }
 >>>>>>> f7c42733f0b50f74e95418139405021914fc5d9f
             }
         }
@@ -119,7 +119,7 @@ SprintManager sprintManager
     
     if(activeSprint) {
         sprintsToIssue.add(activeSprint)
-    	return sprintsToIssue
+        return sprintsToIssue
         
     }
     return null
@@ -128,18 +128,18 @@ SprintManager sprintManager
 // Getting the Scrum Team issue type & Getting the Team Focal Value, and using it to the Allocation's Summary.
 private ApplicationUser getAllocationAssignee(currentIndexValue, ApplicationUser user) {
     
-	def searchService = ComponentAccessor.getComponent(SearchService);
-	def issueManager = ComponentAccessor.getIssueManager();
-	def userSearchService = ComponentAccessor.getComponent(UserSearchService);
-	def jqlQueryParser = ComponentAccessor.getComponent(JqlQueryParser)
-	def userManager = ComponentAccessor.getUserManager();
+    def searchService = ComponentAccessor.getComponent(SearchService);
+    def issueManager = ComponentAccessor.getIssueManager();
+    def userSearchService = ComponentAccessor.getComponent(UserSearchService);
+    def jqlQueryParser = ComponentAccessor.getComponent(JqlQueryParser)
+    def userManager = ComponentAccessor.getUserManager();
    
     def ALLOCATION_FOCAL_FIELD_ID = "customfield_14067";
     
-	def teamFocal = customFieldManager.getCustomFieldObject(ALLOCATION_FOCAL_FIELD_ID);
-    		def query = jqlQueryParser.parseQuery("issuetype = 'Scrum Team' and Summary ~ '${currentIndexValue}'");
-			def results = searchService.search(user,query, PagerFilter.getUnlimitedFilter())
-			results = results.getResults();
+    def teamFocal = customFieldManager.getCustomFieldObject(ALLOCATION_FOCAL_FIELD_ID);
+            def query = jqlQueryParser.parseQuery("issuetype = 'Scrum Team' and Summary ~ '${currentIndexValue}'");
+            def results = searchService.search(user,query, PagerFilter.getUnlimitedFilter())
+            results = results.getResults();
                           
             if(results) {
                 Issue scrumTeamIssue = issueManager.getIssueObject(results[0].key.toString());
@@ -150,8 +150,8 @@ private ApplicationUser getAllocationAssignee(currentIndexValue, ApplicationUser
                 def currentUser = teamFocalUser.toString().substring(0,seperator);
                 ApplicationUser teamFocalU = userSearchService.findUsersByEmail(currentUser.toString())[0];
 
-    	}
-	}
+        }
+    }
 }
 
 private boolean isEpic(Issue issue) {
@@ -159,17 +159,17 @@ private boolean isEpic(Issue issue) {
 }
 
 private boolean isIndeciesSame(oldIndex, newIndex) {
-    	return newIndex == oldIndex;
+        return newIndex == oldIndex;
 }
 <<<<<<< HEAD
 
 // Getting the allocation's Value to set it while running the script.
 private Option setScrumTeamValue (MutableIssue allocation, CustomField scrumTeamField, newIndexValue, OptionsManager optManager) {
     
-	Options options = optManager.getOptions(scrumTeamField.getRelevantConfig(allocation));
-	def fieldConfig = scrumTeamField.getRelevantConfig(allocation);
-	def value = ComponentAccessor.optionsManager.getOptions(fieldConfig)?.find { it.toString().trim() == newIndexValue.toString().trim() } 
-	return value;
+    Options options = optManager.getOptions(scrumTeamField.getRelevantConfig(allocation));
+    def fieldConfig = scrumTeamField.getRelevantConfig(allocation);
+    def value = ComponentAccessor.optionsManager.getOptions(fieldConfig)?.find { it.toString().trim() == newIndexValue.toString().trim() } 
+    return value;
 }
 
 
@@ -184,14 +184,14 @@ involvedScrumTeams = (!involvedScrumTeams || involvedScrumTeams.size() == 0) ? [
 
 
 private Collection getAllLinkedAllocations(Issue issue, ApplicationUser user) {
-    	def issueManager = ComponentAccessor.getIssueManager();
-    	def searchService = ComponentAccessor.getComponent(SearchService);
-		def jqlQueryParser = ComponentAccessor.getComponent(JqlQueryParser);
-    	MutableIssue allocationIssue;
-    	def allocationsSummary = [];
+        def issueManager = ComponentAccessor.getIssueManager();
+        def searchService = ComponentAccessor.getComponent(SearchService);
+        def jqlQueryParser = ComponentAccessor.getComponent(JqlQueryParser);
+        MutableIssue allocationIssue;
+        def allocationsSummary = [];
     
         def query = jqlQueryParser.parseQuery("issuetype = Allocation and 'Epic Link' = '${issue.key.toString()}'");
-		def results = searchService.search(user,query, PagerFilter.getUnlimitedFilter()).getResults();
+        def results = searchService.search(user,query, PagerFilter.getUnlimitedFilter()).getResults();
     
         if(results) {
             for(def i = 0; i < results.size(); i++) {
@@ -201,20 +201,20 @@ private Collection getAllLinkedAllocations(Issue issue, ApplicationUser user) {
                 
             }
         }
-    	return allocationsSummary;
+        return allocationsSummary;
 }
 
 private boolean isScrumTeamExists(ApplicationUser user, scrumTeamName) {
     def searchService = ComponentAccessor.getComponent(SearchService);
-	def jqlQueryParser = ComponentAccessor.getComponent(JqlQueryParser);
+    def jqlQueryParser = ComponentAccessor.getComponent(JqlQueryParser);
     
     def query = jqlQueryParser.parseQuery("issuetype = 'Scrum Team' and 'Summary' ~ '${scrumTeamName.toString()}'");
-	def results = searchService.search(user,query, PagerFilter.getUnlimitedFilter()).getResults();
-	
+    def results = searchService.search(user,query, PagerFilter.getUnlimitedFilter()).getResults();
+    
     if(results) {
         return true
     }
     return false
-	}
+    }
 =======
 >>>>>>> f7c42733f0b50f74e95418139405021914fc5d9f

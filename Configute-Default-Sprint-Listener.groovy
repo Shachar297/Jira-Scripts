@@ -34,15 +34,15 @@ def activeSprint = sprints.find { it.active }
 
 
 if (activeSprint && !issue.getCustomFieldValue(sprintField)) {
-	handleIssueChanges(issue, activeSprint.id, sprintsToIssue, sprintField);
+    handleIssueChanges(issue, activeSprint.id, sprintsToIssue, sprintField);
 }
 
 private void handleIssueChanges (Issue issue, Long sprintId, Collection issueSprints, CustomField sprintField) {
-	def loggedInUser = ComponentAccessor.getJiraAuthenticationContext().getLoggedInUser()
-	def issueManager = ComponentAccessor.getIssueManager();
-	// 
-    	sprintsToIssue.add(activeSprint)
-    	MutableIssue currentIssue = issueManager.getIssueObject(issue.key.toString());
-	currentIssue.setCustomFieldValue(sprintField, issueSprints);
-    	issueManager.updateIssue(loggedInUser, currentIssue, EventDispatchOption.DO_NOT_DISPATCH, false);
+    def loggedInUser = ComponentAccessor.getJiraAuthenticationContext().getLoggedInUser()
+    def issueManager = ComponentAccessor.getIssueManager();
+    // 
+        sprintsToIssue.add(activeSprint)
+        MutableIssue currentIssue = issueManager.getIssueObject(issue.key.toString());
+    currentIssue.setCustomFieldValue(sprintField, issueSprints);
+        issueManager.updateIssue(loggedInUser, currentIssue, EventDispatchOption.DO_NOT_DISPATCH, false);
 }

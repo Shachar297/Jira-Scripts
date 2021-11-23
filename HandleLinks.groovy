@@ -85,11 +85,11 @@ updateIssue(placeHolderIssue, user, issueManager);
 private Issue getBugIssue(Issue issue, ApplicationUser user) {
     
     def searchService = ComponentAccessor.getComponent(SearchService);
-	def issueManager = ComponentAccessor.getIssueManager();
-	def jqlQueryParser = ComponentAccessor.getComponent(JqlQueryParser)
+    def issueManager = ComponentAccessor.getIssueManager();
+    def jqlQueryParser = ComponentAccessor.getComponent(JqlQueryParser)
     
     def query = jqlQueryParser.parseQuery("issuetype = \"bug\" and issueFunction in linkedIssuesOf('key= ${issue.getKey()}', \"Log Work-Work Issue\")");
-	def results = searchService.search(user,query, PagerFilter.getUnlimitedFilter()).getResults()
+    def results = searchService.search(user,query, PagerFilter.getUnlimitedFilter()).getResults()
     return;
    
 }
@@ -116,8 +116,8 @@ issueManager.updateIssue(user, issueToUpdate, EventDispatchOption.ISSUE_UPDATED,
 private void setAssigneeForCurrentIssue(MutableIssue issue) {
     if(!issue.getAssignee() || issue.getAssignee() == null || issue.getAssignee() == "") {
     
-	def assignee = issue.getReporter() as ApplicationUser;
-	issue.setAssignee(assignee);
+    def assignee = issue.getReporter() as ApplicationUser;
+    issue.setAssignee(assignee);
    }
 }
 

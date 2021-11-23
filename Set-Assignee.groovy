@@ -35,13 +35,13 @@ results = results.getResults();
 
 
 if(results) {
-	Issue scrumTeamIssue = issueManager.getIssueObject(results[0].key.toString());
+    Issue scrumTeamIssue = issueManager.getIssueObject(results[0].key.toString());
     def teamFocalUser = scrumTeamIssue.getCustomFieldValue(teamFocal);
 
     if(teamFocalUser) {
         def seperator = teamFocalUser.toString().indexOf("(")
         def currentUser = teamFocalUser.toString().substring(0,seperator);
-		ApplicationUser teamFocalU = userSearchService.findUsersByEmail(currentUser.toString())[0];
+        ApplicationUser teamFocalU = userSearchService.findUsersByEmail(currentUser.toString())[0];
 
         MutableIssue currentIssue = issueManager.getIssueObject(issue.key.toString())
         currentIssue.setAssignee(teamFocalU)
