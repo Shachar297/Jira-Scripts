@@ -18,20 +18,28 @@ import com.atlassian.jira.issue.IssueManager;
 
 FormField sprintPicker = getFieldByName("Related Sprint");
 FormField sprintField = getFieldByName("Sprint");
+FormField cyclePicker = getFieldByName("Related Cycle");
+
+def currentSprint = sprintField.value;
 
 def issueManager = ComponentAccessor.getIssueManager();
 def user = ComponentAccessor.getJiraAuthenticationContext().getLoggedInUser();
 
-sprintPicker.setFormValue(getSprintIssueBySprintName(sprintField, user))
+if(sprintField.getValue()) {
+    
+sprintPicker.setFormValue(getSprintIssueBySprintName(sprintField, user, sprintPicker, cyclePicker));
+    
+}else if(!sprintField.getValue() || sprintField.value == '') {
+	resetFormValues(sprintPicker, cyclePicker);
+}
 
 
 
-private String getSprintIssueBySprintName(FormField sprintField,ApplicationUser user ) { 
-    FormField cyckePicker = getFieldByName("Related Cycle");
+private String getSprintIssueBySprintName(FormField sprintField,ApplicationUser user, FormField sprintPicker, FormField cyclePicker) { 
 
     @WithPlugin("com.pyxis.greenhopper.jira")
     @JiraAgileBean SprintManager sprintManager
-       CustomField cyclePickerCF = ComponentAccessor.getCustomFieldManager().getCustomFieldObject("customfield_14028");
+   	CustomField cyclePickerCF = ComponentAccessor.getCustomFieldManager().getCustomFieldObject("customfield_14028");
 
     IssueManager issueManager = ComponentAccessor.getIssueManager();
 
@@ -47,14 +55,28 @@ private String getSprintIssueBySprintName(FormField sprintField,ApplicationUser 
 
     if(results) {
         Issue sprintIssue = issueManager.getIssueObject(results[0].key);
-           cyckePicker.setFormValue(getCycleIssue(cyclePickerCF, sprintIssue, issueManager));
-        return sprintIssue ? sprintIssue : null
+       	cyclePicker.setFormValue(getCycleIssue(cyclePickerCF, sprintIssue, issueManager));
+        return sprintIssue
+    }else if (!results) {
+       
+			resetFormValues(sprintPicker, cyclePicker);
+    return null
+    }else if ( !sprintField.getValue() || sprintField.getValue() == '') {
+			resetFormValues(sprintPicker, cyclePicker);
+    return null
+    }else{
+			resetFormValues(sprintPicker, cyclePicker);
     }
-}
+}	
 
+private void resetFormValues(FormField sprintPicker, FormField cyclePicker) {
+            cyclePicker.setFormValue(null)
+            sprintPicker.setFormValue(null)
+}
 
 private String getCycleIssue(CustomField cyckePickerCF, Issue sprintIssue,IssueManager issueManager) {
     def cycleIssue = issueManager.getIssueObject(sprintIssue.getCustomFieldValue(cyckePickerCF).toString());
-   return cycleIssue
+    return cycleIssue
     
 }
+
