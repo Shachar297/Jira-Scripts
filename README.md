@@ -17,7 +17,7 @@
 
 ##### <b> Always remember to publish you WF changes.</b>
 
-<img src="./jiraWF.png" alt="JiraWFIMG">
+<img src="./images/jiraWF.png" alt="JiraWFIMG">
 
 ---
 
@@ -25,23 +25,22 @@
 
 #### I like to use a Fragments to set up configurations like displaying something on the screen or removing some elements from the screen.
 
-<img src="./jiraFragment.png">
+<img src="./images/jiraFragment.png">
 
 #### In this example, We Adding some elements to the screen.
+
 ##### Configure you fragment.
 
+<img src="./images/jiraFr.png">
 
-<img src="./jiraFr.png">
-
------
+---
 
 # Acvanced Scripts
 
-
 #### Say you want to find a specific issue, or a bunch of them.
+
 #### A jql searcher lets you do it super easy !
 
+<img src="./images/jql.png">
 
-<img src="./jql.png">
-
-<img src="./img4.png">
+<img src="./images/img4.png">
