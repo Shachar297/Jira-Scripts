@@ -44,3 +44,53 @@
 <img src="./images/jql.png">
 
 <img src="./images/img4.png">
+
+-----
+
+# API Calls
+
+### <a href="https://developer.atlassian.com/server/jira/platform/rest-apis/" target="_blank"> Jira REST API Documentation. </a>
+
+#### I have written a Nodejs server to integrate Jira Server. <a href="https://github.com/Shachar297/Jira/tree/Jira-Server-Intergration"> You can find it here. </a>
+
+### Create Issue JSON Exmple
+
+```sh
+{
+    "fields": {
+        "project": {
+            "id": 10000
+        },
+        "summary": "My summary",
+        "issuetype": {
+            "name": "Story"
+        },
+        "assignee": {
+            "name": "${config.system.name}"
+        },
+      "customfield_10108": "FJP-2"
+    }
+}
+```
+
+### Create Filter JSON Exmple
+
+```sh  
+{
+    "name": "All Empty Stories",
+    "description": "Lists all stand alone Stories",
+    "jql": "type = Story and 'Epic Link' is empty",
+    "favourite": true
+}
+```
+
+```js
+try {
+    filter = await axios.post(`${config.system.baseUrl}filter/`, {body : filterFields}, header)
+    .then((res) => {
+        return filter
+    });
+} catch (error) {
+    throw new ServerError(error);
+}
+```
