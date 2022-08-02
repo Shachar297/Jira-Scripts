@@ -1,4 +1,4 @@
-# This Repo is holding a bunch of Jira Server (On-premise) scripts for Script listeners, Behaviors and Workflow scripts & Validators.
+# This Repository is holding a bunch of Jira Server (On-premise) scripts for Script listeners, Behaviors and Workflow scripts & Validators.
 
 ##### Beginners & Advanced.
 
